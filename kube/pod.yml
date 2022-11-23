@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: managementservice
+  labels:
+    app: web
+spec:
+  containers:
+    - name: test-end
+      image: f2js/managementservice
+      ports:
+        - containerPort: 8080
