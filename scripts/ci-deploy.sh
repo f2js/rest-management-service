@@ -10,8 +10,8 @@ export COMMIT_SHA1=$COMMIT_SHA1
 #  Since the only way for envsubst to work on files is using input/output redirection,
 #  it's not possible to do in-place substitution, so you will save the output to another file
 #  and overwrite the original with that one.
-envsubst <./kube/pod.yaml >./kube/pod.yaml.out
-mv ./kube/pod.yaml.out ./kube/pod.yaml
+envsubst <./kube/pod.yml >./kube/pod.yml.out
+mv ./kube/pod.yml.out ./kube/pod.yml
 
 echo "$KUBERNETES_CLUSTER_CERTIFICATE" | base64 --decode > cert.crt
 
