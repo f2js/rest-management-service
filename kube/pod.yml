@@ -7,6 +7,6 @@ metadata:
 spec:
   containers:
     - name: test-end
-      image: f2js/managementservice
+      image: f2js/managementservice:latest
       ports:
         - containerPort: 8080
