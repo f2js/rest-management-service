@@ -1,4 +1,4 @@
-require("dotenv").config({ path: "./config.env" });
+require("dotenv").config({ path: "./.env" });
 const dbConnection = require("./Services/DBConnetion");
 
 const app = require("./app");
@@ -13,6 +13,7 @@ const config = {
 
 dbConnection.connect();
 
+console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV == "development") {
   app.listen(config.port, config.host, (e) => {
     if (e) {

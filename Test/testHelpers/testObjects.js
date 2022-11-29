@@ -107,10 +107,14 @@ const user2 = {
   role: "user",
 };
 
+const token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyMSI6eyJfaWQiOiI2Mzc5MmQ1ODE2ZjM1MWViNzEwZWNkMmMiLCJuYW1lIjoiRnJlZGR5IEtydWVnZXIiLCJ1c2VybmFtZSI6InJlYWxzbGltZnJlZGR5IiwiZW1haWwiOiJmcmVkZHlAZnJlZGR5LmNvbSIsInBhc3N3b3JkIjoiYmxhYmxhYmxhIiwicm9sZSI6InVzZXIifSwiaWF0IjoxNjY5NzQ1OTk2fQ";
+
 module.exports = {
   restaurant,
   basket,
   addToBasket,
   user1,
   user2,
+  token,
 };
