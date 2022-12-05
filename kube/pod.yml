@@ -8,5 +8,14 @@ spec:
   containers:
     - name: rest-management
       image: f2js/rest-management:latest
+      env:
+        - name: "TOKEN_SECRET"
+          value: ${TOKEN_SECRET}
+        - name: "DB_URI"
+          value: ${DB_URI}
+        - name: "DB_NAME"
+          value: ${DB_NAME}
+        - name: "NODE_ENV"
+          value: production
       ports:
         - containerPort: 8080
