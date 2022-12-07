@@ -1,0 +1,33 @@
+extend schema
+  @link(
+    url: "https://specs.apollo.dev/federation/v2.0"
+    import: ["@key", "@shareable"]
+  )
+
+type Restaurant @key(fields: "id") {
+  id: ID
+  name: String
+  rating: Float
+  openHours: String
+  minDeliveryPrice: Float
+  location: Location
+  menu: [MenuItem]
+  tags: [String]
+}
+
+type Location {
+  street: String
+  postalCode: Int
+  city: String
+  country: String
+  address: String
+}
+type MenuItem {
+  itemNumber: Int
+  name: String
+  price: Int
+}
+
+type Query {
+  getMenu(restaurantId: ID): [MenuItem]
+}
