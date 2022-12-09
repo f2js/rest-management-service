@@ -23,7 +23,7 @@ if (process.env.NODE_ENV == "development") {
     );
   });
 } else {
-  https.createServer(app).listen(port, () => {
+  app.listen(app).listen(port, () => {
     console.log(`App running on port ${port}`);
   });
 }
