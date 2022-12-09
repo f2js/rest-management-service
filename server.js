@@ -13,17 +13,10 @@ const config = {
 dbConnection.connect();
 
 console.log(process.env.NODE_ENV);
-if (process.env.NODE_ENV == "development") {
-  app.listen(config.port, (e) => {
-    if (e) {
-      throw new Error("Error starting server");
-    }
-    console.log(
-      `App running locally without sslOptions on port ${config.port}`
-    );
-  });
-} else {
-  app.listen(app).listen(port, () => {
-    console.log(`App running on port ${port}`);
-  });
-}
+
+app.listen(config.port, (e) => {
+  if (e) {
+    throw new Error("Error starting server");
+  }
+  console.log(`App running locally without sslOptions on port ${config.port}`);
+});
