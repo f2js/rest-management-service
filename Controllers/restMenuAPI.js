@@ -1,7 +1,7 @@
 const { RESTDataSource } = require("@apollo/datasource-rest");
 
 class menuRESTAPI extends RESTDataSource {
-  baseURL = "http://localhost:3000/menu/";
+  baseURL = "http://localhost:3001/menu/";
 
   async getMenu(restaurantId) {
     const { menu } = await this.get(`${restaurantId}`);

@@ -6,9 +6,10 @@ const router = express.Router({ mergeParams: true });
 
 const USE_AUTH = !process.env["SKIP_AUTH"];
 
+/*
 if (USE_AUTH) {
   router.use(JWTverify);
-}
+}*/
 
 router.get("/:id", menuController.getResturantMenu);
 

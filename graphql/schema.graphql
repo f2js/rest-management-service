@@ -4,7 +4,7 @@ extend schema
     import: ["@key", "@shareable"]
   )
 
-type Restaurant @key(fields: "id") {
+type Restaurant @key(fields: "id") @shareable {
   id: ID
   name: String
   rating: Float
