@@ -8,7 +8,10 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-    - nodePort: 0 # - a static port assigned on each the node
+    - name: "graphql"
+      port: 4001
+      targetPort: 4001
+    - name: "rest" # - a static port assigned on each the node
       port: 3000 # - port exposed internally in the cluster
       targetPort: 3000 # - the container port to send requests to
   selector:
