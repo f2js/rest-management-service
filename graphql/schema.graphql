@@ -1,10 +1,4 @@
-extend schema
-  @link(
-    url: "https://specs.apollo.dev/federation/v2.0"
-    import: ["@key", "@shareable"]
-  )
-
-type Restaurant @key(fields: "id") @shareable {
+type Restaurant {
   id: ID
   name: String
   rating: Float
@@ -28,6 +22,19 @@ type MenuItem {
   price: Int
 }
 
+input MenuItemInput {
+  itemNumber: Int
+  name: String
+  price: Int
+}
+
 type Query {
   getMenu(restaurantId: ID): [MenuItem]
+}
+
+type Mutation {
+  updateMenu(restaurantId: ID, menu: [MenuItemInput]): [MenuItem]
+  addItemToMenu(restaurantId: ID, item: MenuItemInput): String
+  updateMinDeliveryPrice(restaurantId: ID, minDeliveryPrice: Float): String
+  updateAddress(restaurantId: ID, address: String): String
 }

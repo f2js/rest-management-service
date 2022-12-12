@@ -27,15 +27,14 @@ const schema = gql(fs.readFileSync("./graphql/schema.graphql", "utf8"));
 const client = new MongoClient(process.env.DB_URI);
 client.connect();
 
-const database = client.db(process.env.DB_NAME);
-
-const dataSources = () => ({
-  menuAPI: new menuRESTAPI(database),
-});
-
 const server = new ApolloServer({
   schema: buildSubgraphSchema([{ typeDefs: schema, resolvers }]),
-  dataSources: dataSources,
+  context: ({ req }) => {
+    const userid = req.headers.userid;
+    const userrole = req.headers.userrole;
+
+    return { dataSources: { menuAPI: new menuRESTAPI(userid, userrole) } };
+  },
   introspection: true,
 });
 
@@ -44,7 +43,6 @@ server.listen({ port: 4002 }).then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`);
 });
 
-console.log(process.env.NODE_ENV);
 app.listen(config.port, (e) => {
   if (e) {
     throw new Error("Error starting server");
