@@ -5,7 +5,7 @@ const supertest = require("supertest");
 const request = supertest(app);
 const dbConnection = require("../Services/DBConnetion");
 
-const { token, restaurant } = require("./testHelpers/testObjects");
+const { restaurant } = require("./testHelpers/testObjects");
 
 process.env.NODE_ENV = "test";
 
@@ -33,25 +33,14 @@ afterAll(async () => {
 describe("GET /menu", () => {
   const restaurantId = restaurant._id;
 
-  test("No token | Access denied", async () => {
-    const response = await request.get(`/menu/${restaurantId}`);
-    expect(response.status).toBe(401);
-    expect(response._body).toBeTruthy();
-  });
-
   test("Resturant not found | Should return 404", async () => {
-    const response = await request
-      .get(`/menu/5f9f1b9b9b9b9b9b9a9a9a9a`)
-      .set("auth-token", token);
+    const response = await request.get(`/menu/5f9f1b9b9b9b9b9b9a9a9a9a`);
     expect(response.status).toBe(404);
     expect(response._body).toBeTruthy();
   });
 
   test("Valid Token | Should return 200", async () => {
-    const response = await request
-      .get(`/menu/${restaurantId}`)
-      .set("auth-token", token);
-
+    const response = await request.get(`/menu/${restaurantId}`);
     expect(response.status).toBe(200);
     expect(response._body).toBeTruthy();
   });
@@ -60,16 +49,9 @@ describe("GET /menu", () => {
 describe("PUT /menu", () => {
   const restaurantId = restaurant._id;
 
-  test("No token | Access denied", async () => {
-    const response = await request.put(`/menu/${restaurantId}`);
-    expect(response.status).toBe(401);
-    expect(response._body).toBeTruthy();
-  });
-
   test("Resturant not found | Should return 404", async () => {
     const response = await request
       .put(`/menu/5f9f1b9b9b9b9b9b9a9a9a9a`)
-      .set("auth-token", token)
       .send({ menu: ["new menu"] });
     expect(response.status).toBe(404);
     expect(response._body).toBeTruthy();
@@ -78,7 +60,6 @@ describe("PUT /menu", () => {
   test("Invalid menu | Should return 400", async () => {
     const response = await request
       .put(`/menu/${restaurantId}`)
-      .set("auth-token", token)
       .send({ menu: null });
     expect(response.status).toBe(400);
     expect(response._body).toBeTruthy();
@@ -87,7 +68,6 @@ describe("PUT /menu", () => {
   test("Valid Token | Should return 200", async () => {
     const response = await request
       .put(`/menu/${restaurantId}`)
-      .set("auth-token", token)
       .send({ menu: ["new menu"] });
 
     expect(response.status).toBe(200);
@@ -98,18 +78,9 @@ describe("PUT /menu", () => {
 describe("PUT /menu/updateDeliveryPrice", () => {
   const restaurantId = restaurant._id;
 
-  test("No token | Access denied", async () => {
-    const response = await request.put(
-      `/menu/updateDeliveryPrice/${restaurantId}`
-    );
-    expect(response.status).toBe(401);
-    expect(response._body).toBeTruthy();
-  });
-
   test("Resturant not found | Should return 404", async () => {
     const response = await request
       .put(`/menu/updateDeliveryPrice/5f9f1b9b9b9b9b9b9a9a9a9a`)
-      .set("auth-token", token)
       .send({ minDeliveryPrice: 10 });
     expect(response.status).toBe(404);
     expect(response._body).toBeTruthy();
@@ -118,7 +89,6 @@ describe("PUT /menu/updateDeliveryPrice", () => {
   test("Invalid minDeliveryPrice | Should return 400", async () => {
     const response = await request
       .put(`/menu/updateDeliveryPrice/${restaurantId}`)
-      .set("auth-token", token)
       .send({ minDeliveryPrice: null });
     expect(response.status).toBe(400);
     expect(response._body).toBeTruthy();
@@ -127,7 +97,6 @@ describe("PUT /menu/updateDeliveryPrice", () => {
   test("Valid Token | Should return 200", async () => {
     const response = await request
       .put(`/menu/updateDeliveryPrice/${restaurantId}`)
-      .set("auth-token", token)
       .send({ minDeliveryPrice: 10 });
 
     expect(response.status).toBe(200);
@@ -138,16 +107,9 @@ describe("PUT /menu/updateDeliveryPrice", () => {
 describe("PUT /menu/updateAddress", () => {
   const restaurantId = restaurant._id;
 
-  test("No token | Access denied", async () => {
-    const response = await request.put(`/menu/updateAddress/${restaurantId}`);
-    expect(response.status).toBe(401);
-    expect(response._body).toBeTruthy();
-  });
-
   test("Resturant not found | Should return 404", async () => {
     const response = await request
       .put(`/menu/updateAddress/5f9f1b9b9b9b9b9b9a9a9a9a`)
-      .set("auth-token", token)
       .send({ address: "new address" });
     expect(response.status).toBe(404);
     expect(response._body).toBeTruthy();
@@ -156,7 +118,6 @@ describe("PUT /menu/updateAddress", () => {
   test("Invalid address | Should return 400", async () => {
     const response = await request
       .put(`/menu/updateAddress/${restaurantId}`)
-      .set("auth-token", token)
       .send({ address: null });
     expect(response.status).toBe(400);
     expect(response._body).toBeTruthy();
@@ -165,7 +126,6 @@ describe("PUT /menu/updateAddress", () => {
   test("Valid Token | Should return 200", async () => {
     const response = await request
       .put(`/menu/updateAddress/${restaurantId}`)
-      .set("auth-token", token)
       .send({ address: "new address" });
 
     expect(response.status).toBe(200);
@@ -176,16 +136,9 @@ describe("PUT /menu/updateAddress", () => {
 describe("POST /menu/addItem", () => {
   const restaurantId = restaurant._id;
 
-  test("No token | Access denied", async () => {
-    const response = await request.post(`/menu/${restaurantId}`);
-    expect(response.status).toBe(401);
-    expect(response._body).toBeTruthy();
-  });
-
   test("Resturant not found | Should return 404", async () => {
     const response = await request
       .post(`/menu/5f9f1b9b9b9b9b9b9a9a9a9a`)
-      .set("auth-token", token)
       .send({ item: "new item" });
     expect(response.status).toBe(404);
     expect(response._body).toBeTruthy();
@@ -194,7 +147,6 @@ describe("POST /menu/addItem", () => {
   test("Invalid item | Should return 400", async () => {
     const response = await request
       .post(`/menu/${restaurantId}`)
-      .set("auth-token", token)
       .send({ item: null });
     expect(response.status).toBe(400);
     expect(response._body).toBeTruthy();
@@ -203,7 +155,6 @@ describe("POST /menu/addItem", () => {
   test("Valid Token | Should return 200", async () => {
     const response = await request
       .post(`/menu/${restaurantId}`)
-      .set("auth-token", token)
       .send({ item: "new item" });
 
     expect(response.status).toBe(200);

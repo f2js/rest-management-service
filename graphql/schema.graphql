@@ -1,0 +1,40 @@
+type Restaurant {
+  id: ID
+  name: String
+  rating: Float
+  openHours: String
+  minDeliveryPrice: Float
+  location: Location
+  menu: [MenuItem]
+  tags: [String]
+}
+
+type Location {
+  street: String
+  postalCode: Int
+  city: String
+  country: String
+  address: String
+}
+type MenuItem {
+  itemNumber: Int
+  name: String
+  price: Int
+}
+
+input MenuItemInput {
+  itemNumber: Int
+  name: String
+  price: Int
+}
+
+type Query {
+  getMenu(restaurantId: ID): [MenuItem]
+}
+
+type Mutation {
+  updateMenu(restaurantId: ID, menu: [MenuItemInput]): [MenuItem]
+  addItemToMenu(restaurantId: ID, item: MenuItemInput): String
+  updateMinDeliveryPrice(restaurantId: ID, minDeliveryPrice: Float): String
+  updateAddress(restaurantId: ID, address: String): String
+}
