@@ -16,3 +16,4 @@ spec:
       targetPort: 3000 # - the container port to send requests to
   selector:
     app.kubernetes.io/name: rest-management
+
