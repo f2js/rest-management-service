@@ -6,7 +6,7 @@ metadata:
   labels:
     app: web
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - name: "graphql"
       port: 4001
